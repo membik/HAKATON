@@ -1,0 +1,340 @@
+/* -------------------------------------- */
+/* Reset / базовые стили */
+/* -------------------------------------- */
+* {
+    margin: 0;
+    padding: 0;    
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+   background: linear-gradient(140deg, rgb(103 135 213) 10% 0%, rgb(84 171 167) 100%);
+    font-family: Arial, sans-serif;
+    color: #fff;
+    overflow: hidden; /* скролл на уровне контейнеров */
+}
+
+/* -------------------------------------- */
+/* Навигация и стекляшка */
+/* -------------------------------------- */
+nav {
+    position: fixed;
+    bottom: 25px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    pointer-events: none; 
+}
+
+.menu {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    justify-content: center;
+}
+
+.container-menu {
+    background: rgb(255 255 255 / 18%);
+    backdrop-filter: blur(20px);
+    width: 90%;
+    height: 55px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    pointer-events: auto;
+    position: relative;
+}
+
+.menu-active-glass {
+    position: absolute;
+    width: 90px;
+    height: 55px;
+    backdrop-filter: blur(25px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    transition: transform 0.3s ease;
+    z-index: 0;
+    box-shadow: inset -2px -2px 30px rgba(142, 148, 128, 0.2);
+}
+
+.container-menu a {
+    width: 90px;
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: #fff;
+    font-size: 13px;
+    position: relative;
+    z-index: 2;
+}
+
+.container-menu a img {
+    width: 20px;
+    height: 20px;
+    margin-bottom: 3px;
+    filter: invert(1) brightness(100%);
+}
+
+/* -------------------------------------- */
+/* Main / секции */
+/* -------------------------------------- */
+main {
+    position: relative;
+    width: 100%;
+    height: 100%; /* больше не используем calc */
+    display: flex;
+    flex-direction: column;
+}
+
+section.page,
+section.page-active {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch; /* важно для flex:1 контейнеров */
+    padding: 0 0 20px 0;
+}
+
+section.page-active {
+    display: flex;
+}
+
+/* -------------------------------------- */
+/* QR-код */
+/* -------------------------------------- */
+.qr-container {
+    width: 100%;
+    height: 100%;
+    display: none; /* скрыт по умолчанию */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 12px;
+    color: rgb(221 225 226 / 88%);
+}
+
+section.page-active #qr-reader {
+    display: block;
+}
+
+.qr-box {
+    width: 250px;
+    height: 250px;
+    margin: 40px auto;
+    border: 1px solid rgb(231 231 231 / 60%);
+    background-color: rgb(189 190 191 / 41%);
+    border-radius: 15px;
+    overflow: hidden; 
+    margin-top: -150px;
+}
+
+.qr-box video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+
+.qr-container > h3 {
+    margin-top: -30px;
+}
+
+/* -------------------------------------- */
+/* Модалка */
+/* -------------------------------------- */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial;
+    column-gap: 20px;
+}
+
+.modal-content {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(20px);
+    padding: 20px;
+    border-radius: 15px;
+    color: white;
+    text-align: left;
+    width: 90%;
+    max-width: 500px;
+    margin: 20px;
+    min-height: 10px;
+}
+
+.modal-content > p {
+    margin-top: 10px;
+    color: #eeeeee;
+}
+
+.modal-content > h3 {
+    margin-top: 5px;
+    font-size: 20px;
+}
+
+#modal-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+    font-size: 30px;
+}
+
+/* -------------------------------------- */
+/* Кнопка избранного */
+/* -------------------------------------- */
+.fav-btn {
+    background: none;
+    border: none;
+    filter: invert(1) brightness(100%);
+    transition: 0.3s;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-left: 90%;
+}
+
+.fav-btn > img {
+    width: 25px;
+    height: 25px;
+}
+
+.fav-btn:hover {
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
+.fav-btn.active {
+    transform: scale(1.3);
+}
+
+/* -------------------------------------- */
+/* Карточки истории и избранного */
+/* -------------------------------------- */
+.favorite-container,
+.history-container {
+    flex: 1; /* занимает доступную высоту */
+    width: 100%;
+    overflow-y: auto; /* скролл */
+    overflow-x: hidden; /* скролл */
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* карточки по центру */
+}
+
+.favorite {
+    width: 100%;
+    max-width: 500px;
+}
+
+.history {
+    width: 100%;
+    max-width: 500px;
+}
+
+.history-card > p {
+    margin-top: 5px;
+    color: #eeeeee;
+}
+
+.history-card > h3 {
+    margin-top: 5px;
+    font-size: 23px;
+}
+
+.favorite-container .card,
+.history-container .history-card {
+    width: 100%;
+    max-width: 500px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(15px);
+    border-radius: 15px;
+    padding: 15px 20px;
+    margin: 10px;
+    text-align: left;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.favorite-container .card button,
+.history-container .history-card button {
+    margin-top: 10px;
+    
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.remove-fav {
+    background: #fe648bbe;
+}
+
+.history, .favorite {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-width: 500px;
+}
+
+#favorite, #history{
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.favorite > h1 {
+    font-family: Arial;
+    font-size: 30px;
+    color: rgba(221, 225, 226, 0.959);
+    margin-top:40px;
+    padding-left: 25px;
+
+}
+
+.history > h1 {
+    font-family: Arial;
+    font-size: 30px;
+    color: rgba(221, 225, 226, 0.959);
+    margin-top:40px;
+    padding-left: 25px;
+}
+
+.card > p {
+    margin-top: 10px;
+    color: #eeeeee;
+}
+
+.card > h3 {
+    margin-top: 5px;
+    font-size: 20px;
+}
+
+.details-fav, .details-history {
+    background: #60e164; 
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-weight: bold;
+    flex: 1; 
+}
